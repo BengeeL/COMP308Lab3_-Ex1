@@ -16,7 +16,7 @@ function NavigationBar() {
     <Navbar expand='lg' bg='light'>
       <Container>
         <Navbar.Brand as={Link} to='/'>
-          LA2 - Schedule Builder
+          LA3 - Vital Solutions
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
@@ -28,14 +28,8 @@ function NavigationBar() {
 
             {auth.token && (
               <>
-                <Nav.Link as={Link} to='/list-students'>
-                  List of Students
-                </Nav.Link>
-                <Nav.Link as={Link} to='/list-courses'>
-                  List of Courses
-                </Nav.Link>
-                <Nav.Link as={Link} to='/list-enrolled'>
-                  Enrolled Courses
+                <Nav.Link as={Link} to='/list-vitals'>
+                  Vital Signs
                 </Nav.Link>
               </>
             )}

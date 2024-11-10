@@ -3,7 +3,10 @@ export function Footer() {
 
   return (
     <footer className='text-center p-4'>
-      <p>&copy; {year} Lab 2 - Benjamin Lefebvre</p>
+      <p>
+        &copy; {year} Lab 3 - Fatimah Binti Yasin, Joshua Stephens & Benjamin
+        Lefebvre
+      </p>
     </footer>
   );
 }
