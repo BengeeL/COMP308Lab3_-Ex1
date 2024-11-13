@@ -20,6 +20,7 @@ function App() {
         <NavigationBar />
 
         <div>
+          
           <Container>
             <Routes>
               <Route index element={<Home />} />
