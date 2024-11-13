@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
-import { Alert, Button, Form, Container, Nav, Spinner } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Form,
+  Container,
+  Nav,
+  Spinner,
+  Row,
+  Col,
+  Card,
+} from "react-bootstrap";
 
 // GraphQL mutations
 const LOGIN_MUTATION = gql`
@@ -61,58 +71,72 @@ function UserComponent() {
 
   return (
     <Container className='p-5'>
-      <Nav
-        variant='tabs'
-        activeKey={activeTab}
-        onSelect={(k) => setActiveTab(k)}
-      >
-        <Nav.Item>
-          <Nav.Link eventKey='login'>Login</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
-        </Nav.Item>
-      </Nav>
+      <Row className='justify-content-md-center'>
+        <Col>
+          <Card>
+            <Card.Header>
+              <Nav
+                variant='tabs'
+                activeKey={activeTab}
+                onSelect={(k) => setActiveTab(k)}
+              >
+                <Nav.Item>
+                  <Nav.Link eventKey='login'>Login</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Card.Header>
+            <Card.Body>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className='mb-3'>
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    type='text'
+                    placeholder='Enter your username'
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </Form.Group>
 
-      <Form onSubmit={handleSubmit} className='mt-3'>
-        <Form.Group className='mb-3'>
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Username'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </Form.Group>
+                <Form.Group className='mb-3'>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type='password'
+                    placeholder='Enter your password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Form.Group>
 
-        <Form.Group className='mb-3'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
+                {authError && <Alert variant='danger'>{authError}</Alert>}
 
-        {authError && <Alert variant='danger'>{authError}</Alert>}
-
-        <Button variant='primary' type='submit' disabled={isSubmitting}>
-          {isSubmitting ? (
-            <Spinner
-              as='span'
-              animation='border'
-              size='sm'
-              role='status'
-              aria-hidden='true'
-            />
-          ) : activeTab === "login" ? (
-            "Login"
-          ) : (
-            "Sign Up"
-          )}
-        </Button>
-      </Form>
+                <Button
+                  variant='primary'
+                  type='submit'
+                  disabled={isSubmitting}
+                  className='w-100'
+                >
+                  {isSubmitting ? (
+                    <Spinner
+                      as='span'
+                      animation='border'
+                      size='sm'
+                      role='status'
+                      aria-hidden='true'
+                    />
+                  ) : activeTab === "login" ? (
+                    "Login"
+                  ) : (
+                    "Sign Up"
+                  )}
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
 }

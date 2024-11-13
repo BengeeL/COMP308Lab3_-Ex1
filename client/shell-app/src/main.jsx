@@ -8,6 +8,7 @@ import {
   ApolloProvider,
 } from "@apollo/client";
 import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Set up the Apollo Client
 const httpLink = createHttpLink({
