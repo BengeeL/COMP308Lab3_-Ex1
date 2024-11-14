@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useQuery, useMutation, gql } from "@apollo/client";
-import { Button, Form, Container, ListGroup, Alert } from "react-bootstrap";
-import { add } from "three/webgpu";
+import { useMutation, gql, useQuery } from "@apollo/client";
+import { Button, Form, Container, ListGroup } from "react-bootstrap";
 
 // Query to get vital signs
 const GET_VITAL_SIGNS_QUERY = gql`
@@ -39,32 +38,57 @@ const ADD_VITAL_SIGNS_MUTATION = gql`
   }
 `;
 
-function VitalSignsComponent() {
-  // const { loading, error, data } = useQuery(GET_VITAL_SIGNS_QUERY, {
-  //   context: { credentials: "include" },
-  // });
+// MUTATION TO EDIT VITAL SIGNS
+const EDIT_VITAL_SIGNS_MUTATION = gql`
+  mutation EditVitalSigns(
+    $id: ID!
+    $heartRate: Int!
+    $bloodPressure: String!
+    $temperature: Float!
+    $respiratoryRate: Int!
+  ) {
+    editVitalSigns(
+      id: $id
+      heartRate: $heartRate
+      bloodPressure: $bloodPressure
+      temperature: $temperature
+      respiratoryRate: $respiratoryRate
+    ) {
+      id
+      heartRate
+      bloodPressure
+      temperature
+      respiratoryRate
+    }
+  }
+`;
 
+function VitalSignsComponent() {
   const [edit, setEdit] = useState(null);
   const [addVital, setAddVital] = useState(false);
 
-  const [data, setData] = useState({
-    vitalSigns: [
-      {
-        id: 1,
-        heartRate: 80,
-        bloodPressure: "120/80",
-        temperature: 21.6,
-        respiratoryRate: 16,
-      },
-      {
-        id: 2,
-        heartRate: 85,
-        bloodPressure: "124/80",
-        temperature: 21.7,
-        respiratoryRate: 20,
-      },
-    ],
+  const { loading, error, data } = useQuery(GET_VITAL_SIGNS_QUERY, {
+    context: { credentials: "include" },
   });
+
+  // const [data, setData] = useState({
+  //   vitalSigns: [
+  //     {
+  //       id: 1,
+  //       heartRate: 80,
+  //       bloodPressure: "120/80",
+  //       temperature: 21.6,
+  //       respiratoryRate: 16,
+  //     },
+  //     {
+  //       id: 2,
+  //       heartRate: 85,
+  //       bloodPressure: "124/80",
+  //       temperature: 21.7,
+  //       respiratoryRate: 20,
+  //     },
+  //   ],
+  // });
 
   const [addVitalSigns, { loading: adding }] = useMutation(
     ADD_VITAL_SIGNS_MUTATION,
@@ -72,6 +96,10 @@ function VitalSignsComponent() {
       refetchQueries: [GET_VITAL_SIGNS_QUERY],
     }
   );
+
+  const [editVitalSigns] = useMutation(EDIT_VITAL_SIGNS_MUTATION, {
+    refetchQueries: [GET_VITAL_SIGNS_QUERY],
+  });
 
   const [id, setId] = useState("");
   const [heartRate, setHeartRate] = useState("");
@@ -103,7 +131,7 @@ function VitalSignsComponent() {
     }
 
     // PUT to GraphQL server
-    await addVitalSigns({
+    await editVitalSigns({
       variables: {
         id,
         heartRate: parseInt(heartRate),
