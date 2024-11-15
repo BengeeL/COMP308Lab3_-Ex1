@@ -1,0 +1,43 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "COMP 308 Assignment 3 Microservices",
+  "main": "server.js",
+  "scripts": {
+    "start:auth": "nodemon ./microservices/auth.microservice.js",
+    "start:vitalSign": "nodemon ./microservices/vital-sign.microservice.js",
+    "start:server": "nodemon ./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BengeeL/COMP308Lab3_-Ex1.git"
+  },
+  "author": "Fatimah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BengeeL/COMP308Lab3_-Ex1/issues"
+  },
+  "homepage": "https://github.com/BengeeL/COMP308Lab3_-Ex1#readme",
+  "dependencies": {
+    "@apollo/federation": "^0.38.1",
+    "@apollo/gateway": "^2.7.1",
+    "apollo-server-express": "^3.13.0",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.19.1",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.4",
+    "express": "^4.18.3",
+    "express-session": "^1.17.2",
+    "graphql": "^16.8.1",
+    "jsonwebtoken": "^9.0.2",
+    "method-override": "^2.3.10",
+    "mongoose": "^6.12.6",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
